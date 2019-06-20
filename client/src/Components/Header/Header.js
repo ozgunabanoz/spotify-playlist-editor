@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import './Header.css';
 
@@ -7,9 +8,9 @@ class Header extends Component {
         return (
             <nav className="navClass">
                 <div className="nav-wrapper grey darken-4 headerBody">
-                    <a href="/" className="brand-logo center">
-                        Spotify Playlist Editor
-                    </a>
+                    <Link to="/" className="brand-logo center">
+                        SpotifyEditor
+                    </Link>
                 </div>
             </nav>
         );
