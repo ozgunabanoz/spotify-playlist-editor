@@ -8,7 +8,7 @@ class Header extends Component {
             <nav className="navClass">
                 <div className="nav-wrapper grey darken-4 headerBody">
                     <a href="/" className="brand-logo center">
-                        SpotifyApp
+                        Spotify Playlist Editor
                     </a>
                 </div>
             </nav>

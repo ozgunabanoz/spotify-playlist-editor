@@ -7,7 +7,7 @@ class OpeningPage extends Component {
         return (
             <div className="openingPageBody">
                 <div>
-                    <h5>Welcome to Personal Spotify App</h5>
+                    <h5>Welcome to Spotify Playlist Editor</h5>
                 </div>
                 <div className="buttonDiv">
                     <button className="loginButton">
