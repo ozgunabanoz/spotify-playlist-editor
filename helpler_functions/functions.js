@@ -114,17 +114,27 @@ const trackRemover = async (playlist, playlistId, accToken) => {
             playlistArray.push(elem);
         }
 
-        await rp({
-            method: 'DELETE',
-            url: `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
-            body: { tracks: playlistArray },
-            json: true,
-            headers: {
-                Authorization: `Bearer ${accToken}`,
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
+        for (let i = 0; i < Math.ceil(playlistArray.length / 100); i++) {
+            let tracksBatch = [];
+
+            for (let j = 0; j < playlistArray.length; j++) {
+                if (Math.floor(j / 100) === i) {
+                    tracksBatch.push(playlistArray[j]);
+                }
             }
-        });
+
+            await rp({
+                method: 'DELETE',
+                url: `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+                body: { tracks: tracksBatch },
+                json: true,
+                headers: {
+                    Authorization: `Bearer ${accToken}`,
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json'
+                }
+            });
+        }
     } catch (e) {
         console.log(e);
     }
@@ -140,17 +150,27 @@ const trackAdder = async (playlist, playlistId, accToken) => {
             playlistArray.push(elem);
         }
 
-        await rp({
-            method: 'POST',
-            url: `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
-            body: { uris: playlistArray },
-            json: true,
-            headers: {
-                Authorization: `Bearer ${accToken}`,
-                'Content-Type': 'application/json',
-                Accept: 'application/json'
+        for (let i = 0; i < Math.ceil(playlistArray.length / 100); i++) {
+            let tracksBatch = [];
+
+            for (let j = 0; j < playlistArray.length; j++) {
+                if (Math.floor(j / 100) === i) {
+                    tracksBatch.push(playlistArray[j]);
+                }
             }
-        });
+
+            await rp({
+                method: 'POST',
+                url: `https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
+                body: { uris: tracksBatch },
+                json: true,
+                headers: {
+                    Authorization: `Bearer ${accToken}`,
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json'
+                }
+            });
+        }
     } catch (e) {
         console.log(e);
     }
