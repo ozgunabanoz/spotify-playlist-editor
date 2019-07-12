@@ -48,25 +48,44 @@ const accessTokenCaller = async req => {
     }
 };
 
-const getAudioAnalysis = async (trackId, accToken) => {
-    // for getting audio analysis for a specific track
+const getAudioAnalysis = async (playlist, accToken) => {
     try {
-        let audioAnalysis = await rp({
-            method: 'GET',
-            url: `https://api.spotify.com/v1/audio-features/${trackId}`,
-            headers: {
-                Authorization: `Bearer ${accToken}`,
-                Accept: 'application/json'
-            }
-        })
-            .then(response => {
-                let data = JSON.parse(response);
+        let audioAnalysis = [];
 
-                return data;
+        for (let i = 0; i < Math.ceil(playlist.length / 100); i++) {
+            let ids = '';
+
+            for (let j = 0; j < playlist.length; j++) {
+                if (Math.floor(j / 100) === i) {
+                    if (j + 1 === playlist.length) {
+                        ids += playlist[j].track.id;
+                    } else {
+                        ids += playlist[j].track.id + ',';
+                    }
+                }
+            }
+
+            let response = await rp({
+                method: 'GET',
+                url: `https://api.spotify.com/v1/audio-features/?ids=${ids}`,
+                headers: {
+                    Authorization: `Bearer ${accToken}`,
+                    Accept: 'application/json'
+                }
             })
-            .catch(err => {
-                console.log(err);
-            });
+                .then(response => {
+                    let data = JSON.parse(response);
+
+                    return data;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
+            for (let k = 0; k < response['audio_features'].length; k++) {
+                audioAnalysis.push(response['audio_features'][k]);
+            }
+        }
 
         return audioAnalysis;
     } catch (e) {
@@ -139,16 +158,25 @@ const trackAdder = async (playlist, playlistId, accToken) => {
 
 const sortPlaylistByBpmIncrease = async (playlist, accToken) => {
     try {
+        let playlistAudioFeatures = await getAudioAnalysis(playlist, accToken);
+
         for (let i = 0; i < playlist.length; i++) {
-            playlist[i]['audio analysis'] = await getAudioAnalysis(
-                playlist[i].track.id,
-                accToken
-            ); // getting audio analysis for every track and adding it as an object to the array element
+            playlist[i]['audio analysis'] = playlistAudioFeatures[i];
         }
 
         playlist.sort(
             (a, b) => a['audio analysis'].tempo - b['audio analysis'].tempo // sort by increasing order
         );
+
+        for (let i = 0; i < playlist.length; i++) {
+            console.log(
+                `${i} ${playlist[i].track['artists'][0].name} ${
+                    playlist[i].track.name
+                } + ${playlist[i]['audio analysis'].tempo}`
+            );
+        }
+
+        // fs.writeFileSync('deneme.json', JSON.stringify(playlist));
 
         return playlist;
     } catch (e) {
@@ -158,16 +186,23 @@ const sortPlaylistByBpmIncrease = async (playlist, accToken) => {
 
 const sortPlaylistByBpmDecrease = async (playlist, accToken) => {
     try {
+        let playlistAudioFeatures = await getAudioAnalysis(playlist, accToken);
+
         for (let i = 0; i < playlist.length; i++) {
-            playlist[i]['audio analysis'] = await getAudioAnalysis(
-                playlist[i].track.id,
-                accToken
-            ); // getting audio analysis for every track and adding it as an object to the array element
+            playlist[i]['audio analysis'] = playlistAudioFeatures[i];
         }
 
         playlist.sort(
             (a, b) => b['audio analysis'].tempo - a['audio analysis'].tempo // sort by decreasing order
         );
+
+        for (let i = 0; i < playlist.length; i++) {
+            console.log(
+                `${i} ${playlist[i].track['artists'][0].name} ${
+                    playlist[i].track.name
+                } + ${playlist[i]['audio analysis'].tempo}`
+            );
+        }
 
         return playlist;
     } catch (e) {
