@@ -1,67 +1,70 @@
 .editPlaylistCard {
-    background-color: #f5f5f5;
-    padding: 2%;
-    margin-top: 2.5%;
-    border-radius: 5px;
-    text-align: center;
+  background-color: #f5f5f5;
+  padding: 2%;
+  margin-top: 2.5%;
+  border-radius: 5px;
+  text-align: center;
 }
 
 .column {
-    float: left;
-    width: 33.33%;
+  float: left;
+  width: 33.33%;
 }
 
 .sec {
-    height: 350px;
+  height: 350px;
 }
 
 .playTracksScroll {
-    padding: 2%;
-    border-radius: 5px;
-    overflow: auto;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 2%;
+  border-radius: 5px;
+  overflow: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .spotifyTrackPlayer {
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .editorButton {
-    padding: 1%;
-    margin-top: 2%;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background-color: #e0e0e0;
-    cursor: pointer;
+  padding: 1%;
+  margin-top: 2%;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: #e0e0e0;
+  cursor: pointer;
 }
 
 .tooltip {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: #212121;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5% 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 100%;
-    left: 50%;
-    margin-left: -175%;
+  visibility: hidden;
+  width: 120px;
+  background-color: #212121;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5% 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -175%;
 }
 
 .tooltip:hover .tooltiptext {
-    visibility: visible;
+  visibility: visible;
 }
 
 @media only screen and (max-width: 600px) {
-    .sec {
-        height: 200px;
-    }
+  .sec {
+    height: 200px;
+  }
 }

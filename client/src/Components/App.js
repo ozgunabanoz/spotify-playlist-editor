@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import * as actions from './../store/actions/index';
@@ -11,55 +16,52 @@ import CheckoutPage from './CheckoutPage/CheckoutPage';
 import './App.css';
 
 class App extends Component {
-    componentDidMount() {
-        this.props.onFetchUser();
+  componentDidMount() {
+    this.props.onFetchUser();
+  }
+
+  render() {
+    let routes = (
+      <Switch>
+        <Route path="/" exact component={OpeningPage} />
+        <Redirect to="/" />
+      </Switch>
+    );
+
+    if (this.props.user) {
+      routes = (
+        <Switch>
+          <Route path="/" exact component={MainPage} />
+          <Route path="/edit" exact component={EditPage} />
+          <Route path="/checkout" exact component={CheckoutPage} />
+          <Redirect to="/" />
+        </Switch>
+      );
     }
 
-    render() {
-        let routes = (
-            <Switch>
-                <Route path="/" exact component={OpeningPage} />
-                <Redirect to="/" />
-            </Switch>
-        );
-
-        if (this.props.user) {
-            routes = (
-                <Switch>
-                    <Route path="/" exact component={MainPage} />
-                    <Route path="/edit" exact component={EditPage} />
-                    <Route path="/checkout" exact component={CheckoutPage} />
-                    <Redirect to="/" />
-                </Switch>
-            );
-        }
-
-        return (
-            <div className="mainDiv">
-                <BrowserRouter>
-                    <div className="container cntClass">
-                        <Header />
-                        {routes}
-                    </div>
-                </BrowserRouter>
-            </div>
-        );
-    }
+    return (
+      <div className="mainDiv">
+        <BrowserRouter>
+          <div className="container cntClass">
+            <Header />
+            {routes}
+          </div>
+        </BrowserRouter>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => {
-    return {
-        user: state.authStore.user
-    };
+  return {
+    user: state.authStore.user
+  };
 };
 
 const mapDispatchToProps = dispatch => {
-    return {
-        onFetchUser: () => dispatch(actions.fetchUser())
-    };
+  return {
+    onFetchUser: () => dispatch(actions.fetchUser())
+  };
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

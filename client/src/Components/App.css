@@ -1,27 +1,27 @@
 .mainDiv {
-    font-family: Helvetica, Arial, sans-serif;
-    background-color: #f5f5f5;
-    width: 100%;
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: #f5f5f5;
+  width: 100%;
 }
 
 .container {
-    width: 50%;
-    padding: 1%;
+  width: 50%;
+  padding: 1%;
 }
 
 .navLink {
-    color: #212121;
-    font-weight: bold;
+  color: #212121;
+  font-weight: bold;
 }
 
 @media only screen and (max-width: 600px) {
-    .container {
-        width: 98%;
-    }
+  .container {
+    width: 98%;
+  }
 }
 
 @media only screen and (min-width: 601px) and (max-width: 1024px) {
-    .container {
-        width: 85%;
-    }
+  .container {
+    width: 85%;
+  }
 }

@@ -10,14 +10,18 @@ import authReducer from './store/reducers/auth';
 import playlistReducer from './store/reducers/playlists';
 
 const rootReducer = combineReducers({
-    authStore: authReducer,
-    playlistStore: playlistReducer
+  authStore: authReducer,
+  playlistStore: playlistReducer
 });
-const store = createStore(rootReducer, {}, applyMiddleware(reduxThunk));
+const store = createStore(
+  rootReducer,
+  {},
+  applyMiddleware(reduxThunk)
+);
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById('root')
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
 );
